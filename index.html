@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Musor Drop</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, sans-serif;
+    }
+
+    #dropBtn {
+      padding: 16px 32px;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      background: #ff4444;
+      color: white;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.15s;
+    }
+
+    #dropBtn:hover {
+      transform: scale(1.05);
+    }
+
+    .musor {
+      position: fixed;
+      font-size: 28px;
+      pointer-events: none;
+      user-select: none;
+      z-index: 5;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button id="dropBtn">Drop Musor</button>
+
+  <script>
+    const button = document.getElementById('dropBtn');
+    const trashEmojis = ['🗑️', '🧻', '🧴', '🍌', '📦', '🦴', '👟', '🍕'];
+
+    button.addEventListener('click', () => {
+      for (let i = 0; i < 99999; i++) {
+        const el = document.createElement('div');
+        el.className = 'musor';
+        el.textContent = trashEmojis[Math.floor(Math.random() * trashEmojis.length)];
+        
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.top = '-50px';
+        el.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+        
+        document.body.appendChild(el);
+
+        // Clean up after animation
+        setTimeout(() => el.remove(), 4000);
+      }
+    });
+  </script>
+
+</body>
+</html>
